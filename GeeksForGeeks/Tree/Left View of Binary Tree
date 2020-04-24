@@ -1,0 +1,18 @@
+class Tree
+{   int maxIndex=0;
+    void leftView(Node root)
+    {
+        leftView(root,1);
+    }
+    void leftView(Node root,int index){
+        if(root==null)
+            return;
+        if(maxIndex<index){
+            System.out.print(root.data+" ");
+            maxIndex=index;
+        }
+        leftView(root.left,index+1);
+        leftView(root.right,index+1);
+    }
+    
+}
