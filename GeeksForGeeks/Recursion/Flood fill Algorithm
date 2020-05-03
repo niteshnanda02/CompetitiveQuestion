@@ -1,0 +1,49 @@
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+		//code
+		Scanner s = new Scanner(System.in);
+        int t = s.nextInt();
+        while (t-- > 0) {
+            int n = s.nextInt(), m = s.nextInt();
+            int[][] a = new int[n][m];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    a[i][j] = s.nextInt();
+                }
+            }
+            int x = s.nextInt(), y = s.nextInt(), c = s.nextInt();
+            int elem = a[x][y];
+            change(a, n, m, x, y, c, elem);
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    System.out.print(a[i][j] + " ");
+                }
+            }
+            System.out.println();
+
+        }
+    }
+
+    private static void change(int[][] a, int n, int m, int x, int y, int c, int elem) {
+        if (x < 0 || x >= n || y < 0 || y >= m)
+            return;
+
+        int x1 = x - 1, x2 = x + 1, y1 = y - 1, y2 = y + 1;
+        if (a[x][y] == elem)
+            a[x][y] = c;
+        else
+            return;
+        change(a, n, m, x1, y, c, elem);
+        change(a, n, m, x, y2, c, elem);
+        change(a, n, m, x2, y, c, elem);
+        change(a, n, m, x, y1, c, elem);
+
+    }
+}
