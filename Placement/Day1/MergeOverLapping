@@ -1,0 +1,38 @@
+1. Sort the intervals based on increasing order of 
+    starting time.
+2. Push the first interval on to a stack.
+3. For each interval do the following
+   a. If the current interval does not overlap with the stack 
+       top, push it.
+   b. If the current interval overlaps with stack top and ending
+       time of current interval is more than that of stack top, 
+       update stack top with the ending  time of current interval.
+4. At the end stack contains the merged intervals. 
+
+
+public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] ints, int[] t1) {
+                return ints[0]-t1[0];
+            }
+        });
+        Stack<int[]> stack=new Stack<>();
+        stack.push(intervals[0]);
+        for (int i = 1; i <intervals.length ; i++) {
+            int[] a=stack.peek();
+            if(a[1]<intervals[i][0]){
+                stack.push(intervals[i]);
+            }else if(a[1]<intervals[i][1]){
+                a[1]=intervals[i][1];
+                stack.pop();
+                stack.push(a);
+            }
+        }
+        int[][] res=new int[stack.size()][2];
+        for (int i = 0; i <stack.size() ; i++) {
+            res[i][0]=stack.get(i)[0];
+            res[i][1]=stack.get(i)[1];
+        }
+        return res;
+    }
