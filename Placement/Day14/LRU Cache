@@ -1,0 +1,41 @@
+class LRUCache {
+    static LinkedList<Integer> queue;
+    static int size;
+    static HashMap<Integer,Integer> map;
+    LRUCache(int cap) {
+        // Intialize the cache capacity with the given
+        // cap
+        queue = new LinkedList<>();
+        size = cap;
+        map=new LinkedHashMap<>();
+    }
+
+    // This method works in O(1)
+    public static int get(int key) {
+        // your code here
+        int res=-1;
+        if(map.containsKey(key)){
+            res=map.get(key);
+            queue.remove(new Integer(key));
+            queue.addLast(key);
+        }
+        return res;
+    }
+
+    // This method works in O(1)
+    public static void set(int key, int value) {
+        // your code here
+        if (map.containsKey(key)){
+            queue.remove(new Integer(key));
+            map.put(key,value);
+            queue.addLast(key);
+        }else {
+            if (map.size()==size){
+                int elem=queue.removeFirst();
+                map.remove(elem);
+            }
+            map.put(key,value);
+            queue.addLast(key);
+        }
+    }
+}
