@@ -1,0 +1,38 @@
+//with recursion
+static ArrayList<Integer> list=new ArrayList<>();
+    // Return a list containing the inorder traversal of the given tree
+    ArrayList<Integer> inOrder(Node root)
+    {
+        // Code
+        list.clear();
+        inord(root);
+        return list;
+    }
+    void inord(Node root){
+        if(root!=null){
+            inord(root.left);
+            list.add(root.data);
+            inord(root.right);
+        }
+    }
+    
+    //without recursion
+     ArrayList<Integer> inOrder(Node root)
+    {
+        // Code
+        ArrayList<Integer> list=new ArrayList<>();
+        Stack<Node> stack=new Stack<>();
+        while(root!=null||!stack.isEmpty()){
+            
+            while(root!=null){
+                stack.push(root);
+                root=root.left;
+            }
+            root=stack.pop();
+            list.add(root.data);
+            
+            root=root.right;
+            
+        }
+        return list;
+    }
