@@ -1,0 +1,55 @@
+class View
+{
+    // function should print the topView of the binary tree
+    static class Hold{
+        Node data;
+        int hd;
+        public Hold(Node data,int hd){
+            this.data=data;
+            this.hd=hd;
+        }
+    }
+    static void topView(Node root)
+    {
+        // add your code
+        TreeMap<Integer,ArrayList<Node>> map=new TreeMap<>();
+        Queue<Hold> queue=new LinkedList<>();
+        Hold hold=new Hold(root,0);
+        queue.add(hold);
+        
+        while(!queue.isEmpty()){
+            Hold rv=queue.remove();
+            int hd=rv.hd;
+            ArrayList<Node> list=new ArrayList<>();
+            
+            if(map.containsKey(hd)){
+                list=map.get(hd);
+                list.add(rv.data);
+                map.put(hd,list);
+            }else{
+                list.add(rv.data);
+                map.put(hd,list);
+            }
+            
+            
+            if(rv.data.left!=null){
+                Hold node=new Hold(rv.data.left,hd-1);
+                queue.add(node);
+            }
+            
+            if(rv.data.right!=null){
+                Hold node=new Hold(rv.data.right,hd+1);
+                queue.add(node);
+            }
+            
+            
+            
+        }
+        
+        Set<Map.Entry<Integer,ArrayList<Node>>> entries=map.entrySet();
+        
+        for(Map.Entry<Integer,ArrayList<Node>> entry:entries){
+            System.out.print(entry.getValue().get(0).data+" ");
+        }
+    }
+}
