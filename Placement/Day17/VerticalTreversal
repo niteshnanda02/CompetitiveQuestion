@@ -1,0 +1,50 @@
+class BinaryTree
+{   
+    static class Hold{
+        Node node;
+        int hd;
+        Hold(Node node,int hd){
+            this.node=node;
+            this.hd=hd;
+        }
+    }
+    static void verticalOrder(Node root)
+    {
+        // add your code here
+        Queue<Hold> queue=new LinkedList<>();
+        TreeMap<Integer,ArrayList<Node>> map=new TreeMap<>();
+        Hold hold=new Hold(root,0);
+        queue.add(hold);
+        while(!queue.isEmpty()){
+            Hold rv=queue.remove();
+            if(map.containsKey(rv.hd)){
+                ArrayList<Node> list=map.get(rv.hd);
+                list.add(rv.node);
+                map.put(rv.hd,list);
+            }else{
+                ArrayList<Node> list=new ArrayList<>();
+                list.add(rv.node);
+                map.put(rv.hd,list);
+                
+            }
+            
+            if(rv.node.left!=null){
+                queue.add(new Hold(rv.node.left,rv.hd-1));
+            }
+            
+            if(rv.node.right!=null){
+                queue.add(new Hold(rv.node.right,rv.hd+1));
+            }
+        }
+        
+        Set<Map.Entry<Integer,ArrayList<Node>>> entries=map.entrySet();
+        
+        for(Map.Entry<Integer,ArrayList<Node>> entry:entries){
+            ArrayList<Node> list=entry.getValue();
+            for(int i=0;i<list.size();i++){
+                System.out.print(list.get(i).data+" ");
+            }
+        }
+        
+    }
+}
