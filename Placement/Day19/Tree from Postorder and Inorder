@@ -1,0 +1,41 @@
+class GfG {
+    // Complete the function
+    static int index;
+    Node buildTree(int in[], int post[], int n) {
+        // Your code here
+        index=n-1;
+        
+        return buildTree(in,post,0,n-1);
+    }
+    
+    Node buildTree(int[] in,int[] post,int s,int e){
+        
+        if(s>e)
+            return null;
+        
+        Node node=new Node(post[index--]);
+        
+        if(s==e)
+            return node;
+            
+        int val = search(in,s,e,node.data);
+        node.right = buildTree(in,post,val+1,e);
+        
+        node.left=buildTree(in,post,s,val-1);
+        
+        
+        return node;
+        
+        
+    }
+    
+    int search(int[] in,int s,int e,int data){
+        
+        for(int i=s;i<=e;i++){
+            if(in[i]==data)
+                return i;
+        }
+        
+        return -1;
+    }
+}
