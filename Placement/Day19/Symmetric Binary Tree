@@ -1,0 +1,21 @@
+class GfG
+{
+    // return true/false denoting whether the tree is Symmetric or not
+    public static boolean isSymmetric(Node root)
+    {
+        // add your code here;
+        Node temp=root;
+        while(temp!=null&&root!=null){
+            if(temp.data!=root.data)
+                return false;
+                
+            temp=temp.left;
+            root=root.right;
+        }
+        if(temp!=null||root!=null)
+            return false;
+            
+        else
+            return true;
+    }
+}
