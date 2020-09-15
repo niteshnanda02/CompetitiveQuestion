@@ -1,0 +1,42 @@
+class Solution
+{   
+    static int index=0;
+    public static Node buildTree(int inorder[], int preorder[], int n)
+    {
+        // code here 
+        index=0;
+        return buildTree(inorder,preorder,0,n-1);
+    }
+    
+    private static Node buildTree(int[] inorder,int[] preorder,int s,int e){
+        
+        if(s>e)
+            return null;
+        
+        Node node=new Node(preorder[index++]);
+        
+        if(s==e)
+            return node;
+        
+        int ind=search(inorder,s,e,node.data);
+        
+        node.left=buildTree(inorder,preorder,s,ind-1);
+        
+        node.right=buildTree(inorder,preorder,ind+1,e);
+        
+        
+        return node;
+        
+    }
+    
+    private static int search(int[] inorder,int s,int e,int data){
+        
+        for(int i=s;i<=e;i++){
+        
+            if(inorder[i]==data)
+                return i;
+        }
+        return -1;
+        
+    }
+}
