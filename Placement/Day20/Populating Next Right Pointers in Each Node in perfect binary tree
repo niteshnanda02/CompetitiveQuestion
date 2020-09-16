@@ -1,0 +1,16 @@
+public static void connect(Node p)
+        {
+            // code here.
+            
+            if(p==null||p.left==null||p.right==null)
+                return;
+                
+            p.left.nextRight=p.right;
+            
+            if(p.nextRight!=null){
+                p.right.nextRight=p.nextRight.left;
+            }
+            
+            connect(p.left);
+            connect(p.right);
+        }
