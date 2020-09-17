@@ -1,0 +1,29 @@
+class Solution
+{
+    // root : the root Node of the given BST
+    // target : the target sum
+    static Set<Integer> set;
+    public int isPairPresent(Node root, int target)
+    {
+        // Write your code here
+        set=new HashSet<>();
+        
+        boolean val=present(root,target);
+        if(val)
+            return 1;
+        else
+            return 0;
+    }
+    
+    public boolean present(Node node,int target){
+        if(node==null)
+            return false;
+        boolean l=present(node.left,target);
+        if(set.contains(node.data))
+            return true;
+        else
+            set.add(target-node.data);
+        boolean r=present(node.right,target);
+        return l|r;
+    }
+}
