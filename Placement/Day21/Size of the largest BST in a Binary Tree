@@ -1,0 +1,42 @@
+class Solution{
+    static int size=0;
+    // Return the size of the largest sub-tree which is also a BST
+    static int largestBst(Node root)
+    {
+        // Write your code here
+        size=0;
+        check(root);
+        
+        return size;
+            
+        
+        
+    }
+    private static void check(Node node){
+        if(node==null)
+            return;
+        if(bst(node))
+            size=Math.max(size,size(node));
+        
+        check(node.left);
+        check(node.right);    
+        
+    }
+    private static boolean bst(Node node){
+        return bst(node,Integer.MAX_VALUE,Integer.MIN_VALUE);
+    }
+    private static boolean bst(Node node,int max,int min){
+        if(node==null)
+            return true;
+        if(node.data>max||node.data<min)
+            return false;
+        
+        return bst(node.left,node.data-1,min)&&bst(node.right,max,node.data+1);    
+    }
+    private static int size(Node node){
+        if(node==null)
+            return 0;
+        return size(node.left)+size(node.right)+1;
+        
+    }
+}
