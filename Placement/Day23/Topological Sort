@@ -1,0 +1,115 @@
+//spoj
+
+public class TopologicalSort {
+    static ArrayList<ArrayList<Integer>> adj;
+    static int[] in;
+    static ArrayList<Integer> res=new ArrayList<>();
+    public static void main(String[] args) {
+        PrintWriter out=new PrintWriter(System.out,true);
+        FastReader fr = new FastReader();
+        res.clear();
+        int n=fr.nextInt();
+        adj=new ArrayList<>(n+1);
+        for (int i = 0; i <n+1 ; i++) {
+            adj.add(new ArrayList<>());
+        }
+        in=new int[n+1];
+        int m=fr.nextInt();
+        while (m-->0){
+            int x=fr.nextInt(),y=fr.nextInt();
+            adj.get(x).add(y);
+            in[y]++;
+        }
+        if(!khan(n)){
+            out.println("Sandro fails.");
+        }else {
+            for (int node:res
+                 ) {
+               out.print(node+" ");
+            }
+            out.println();
+        }
+    }
+
+    private static boolean khan(int n) {
+        PriorityQueue<Integer> queue=new PriorityQueue<>();
+        for (int i = 1; i <=n ; i++) {
+            if(in[i]==0)
+                queue.add(i);
+        }
+
+        while (!queue.isEmpty()){
+            int rv=queue.poll();
+            res.add(rv);
+            for (int child:adj.get(rv)
+                 ) {
+                in[child]--;
+                if(in[child]==0)
+                    queue.add(child);
+            }
+        }
+
+        return res.size()==n;
+    }
+}
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new
+                InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                st = new StringTokenizer(br.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+}
+
+
+//gfg
+class TopologicalSort {
+    static int[] in;
+    static int[] res;
+    static int[] topoSort(ArrayList<ArrayList<Integer>> adj, int N) {
+        // add your code here
+        in=new int[N];
+        res=new int[N];
+        for(ArrayList<Integer> list:adj){
+            for(int i:list){
+                in[i]++;
+            }
+        }
+        Queue<Integer> queue=new LinkedList<>();
+        for(int i=0;i<N;i++){
+            if(in[i]==0){
+                queue.add(i);
+            }
+        }
+        int index=0;
+        
+        while(!queue.isEmpty()){
+            int rv=queue.poll();
+            res[index]=rv;
+            index++;
+            for(int child:adj.get(rv)){
+                in[child]--;
+                if(in[child]==0)
+                    queue.add(child);
+            }
+        }
+        
+        return res;
+    }
+}
