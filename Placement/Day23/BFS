@@ -1,0 +1,26 @@
+class Traversal {
+    static ArrayList<Integer> list;
+    static int[] vis;
+    static ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> g, int N) {
+        // add your code here
+        list=new ArrayList<>();
+        vis=new int[N+1];
+        int curr=0;
+        Queue<Integer> queue=new LinkedList<>();
+        queue.add(curr);
+        vis[curr]=1;
+        while(!queue.isEmpty()){
+            int rv=queue.remove();
+            list.add(rv);
+            
+            for(int child:g.get(rv)){
+                if(vis[child]==0){
+                    queue.add(child);
+                    vis[child]=1;
+                }
+            }
+        }
+        
+        return list;
+    }
+}
