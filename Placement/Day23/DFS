@@ -1,0 +1,25 @@
+class Traversal
+{
+    static ArrayList<Integer> list;
+    static int[] vis;
+    static ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> g, int N)
+    {
+       // add your code here
+       vis=new int[N+1];
+       list=new ArrayList<>();
+       dfs(g,N,0);
+       return list;
+    }
+    static void dfs(ArrayList<ArrayList<Integer>> g, int N,int curr){
+        vis[curr]=1;
+        list.add(curr);
+        
+        for(int child:g.get(curr)){
+            if(vis[child]==0){
+                dfs(g,N,child);
+            }
+        }
+        
+    }
+}
+
