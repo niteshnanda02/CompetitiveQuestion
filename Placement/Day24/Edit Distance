@@ -1,0 +1,33 @@
+class Solution
+{
+    static int[][] dp=new int[102][102];
+    public int editDistance(String s, String t)
+    {
+        // Code here
+        for(int[] a:dp)
+            Arrays.fill(a,-1);
+        return editDistance(s,t,0,0);
+    }
+    public int editDistance(String s, String t,int i,int j)
+    {
+        if(s.length()==i)
+            return t.length()-j;
+        if(t.length()==j)
+            return s.length()-i;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        if(s.charAt(i)==t.charAt(j))
+            return dp[i][j]=editDistance(s,t,i+1,j+1);
+        else{
+            //add
+            int f1=1+editDistance(s,t,i+1,j);
+            //remove
+            int f2=1+editDistance(s,t,i,j+1);
+            //replace
+            int f3=1+editDistance(s,t,i+1,j+1);
+            
+            return dp[i][j]=Math.min(f1,Math.min(f2,f3));
+        }    
+        
+    }
+}
