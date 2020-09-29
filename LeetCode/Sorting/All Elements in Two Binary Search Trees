@@ -1,0 +1,21 @@
+class Solution {
+    private static PriorityQueue<Integer> q;
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        q=new PriorityQueue<>();
+        solve(root1);
+        solve(root2);
+        List<Integer> l=new ArrayList<>();
+        while(!q.isEmpty()){
+            l.add(q.poll());
+        }
+        
+        return l;
+    }
+    private void solve(TreeNode r){
+        if(r==null)
+            return;
+        solve(r.left);
+        q.add(r.val);
+        solve(r.right);
+    }
+}
