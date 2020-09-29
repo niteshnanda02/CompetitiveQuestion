@@ -1,0 +1,39 @@
+class Solution {
+    private class pair implements Comparable<pair>{
+        int x,y;
+        pair(int a,int b){
+            x=a;
+            y=b;
+        }
+        
+        @Override
+        public int compareTo(pair p){
+            return this.y-p.y;
+        }
+    }
+    public int getKth(int lo, int hi, int k) {
+        List<pair> l=new ArrayList<>();
+        while(lo<=hi){
+            int v=solve(lo);
+            l.add(new pair(lo,v));
+            lo++;
+        }
+        
+        Collections.sort(l);
+        
+        return l.get(k-1).x;
+    }
+    private int solve(int n){
+        int ans=0;
+        while(n!=1){
+            if(n%2==0){
+                n/=2;
+                
+            }else{
+                n=(3*n)+1;
+            }
+            ans++;
+        }
+        return ans;
+    }
+}
