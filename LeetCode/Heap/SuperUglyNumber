@@ -1,0 +1,19 @@
+class Solution {
+    public int nthSuperUglyNumber(int n, int[] primes) {
+        PriorityQueue<Long> q=new PriorityQueue<>();
+        q.add(1L);
+        int i=1;
+        while(i<n&&!q.isEmpty()){
+            long rv=q.poll();
+            for(int j=0;j<primes.length;j++){
+                q.add(primes[j]*rv);
+            }
+            while(!q.isEmpty()&&q.peek()==rv){
+                q.poll();
+            }
+            i++;
+        }
+       
+        return q.peek().intValue();
+    }
+}
