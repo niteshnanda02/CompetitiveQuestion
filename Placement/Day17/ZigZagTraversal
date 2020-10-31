@@ -1,0 +1,38 @@
+class GFG
+{
+    // return an array containing the zig zag level order traversal of the given tree
+	ArrayList<Integer> zigZagTraversal(Node root)
+	{
+	    //Add your code here.
+	    ArrayList<Integer> l=new ArrayList<>();
+	    Stack<Node> s1=new Stack<>(),s2=new Stack<>();
+	    s1.add(root);
+	    
+	    while(!s1.isEmpty()||!s2.isEmpty()){
+	        while(!s1.isEmpty()){
+	            Node rv=s1.pop();
+	            l.add(rv.data);
+	            if(rv.left!=null){
+	                s2.add(rv.left);
+	            }
+	            if(rv.right!=null){
+	                s2.add(rv.right);
+	            }
+	            
+	        }
+	        while(!s2.isEmpty()){
+	            Node rv=s2.pop();
+	            l.add(rv.data);
+	            if(rv.right!=null){
+	                s1.add(rv.right);
+	            }
+	            if(rv.left!=null){
+	                s1.add(rv.left);
+	            }
+	            
+	        }
+	    }
+	    
+	    return l;
+	}
+}
