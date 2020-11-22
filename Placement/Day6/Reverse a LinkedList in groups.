@@ -1,38 +1,32 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-class Solution {
-    public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode curr=head;
-        int count=0;
-        //find the k+1 node
-        while(curr!=null&&count!=k){
+class GfG
+{
+    public static Node reverse(Node node, int k)
+    {
+        //Your code here
+        if(node==null||k==1)
+            return node;
+        int size=0;
+        
+        Node dummy=new Node(0);
+        dummy.next=node;
+        Node prev=dummy,curr=dummy,next=dummy;
+        while(curr.next!=null){
             curr=curr.next;
-            count++;
+            size++;
         }
-        //if k+1 node is found
-        if(count==k){
-            //reverse list with k+1 nodes as head
-            curr=reverseKGroup(curr,k);
-            //head will point to the direct part
-            //curr will point to the reverse part
-                //reverse a linkedlist in a group
-            while(count-->0){
-                ListNode temp=head.next;
-                head.next=curr;
-                curr=head;
-                head=temp;
+        
+        while(size>=k){
+            curr=prev.next;
+            next=curr.next;
+            for(int i=1;i<k;i++){
+                curr.next=next.next;
+                next.next=prev.next;
+                prev.next=next;
+                next=curr.next;
             }
-            head=curr;
+            prev=curr;
+            size-=k;
         }
-        return head;
+        return dummy.next;
     }
-    
 }
