@@ -1,0 +1,50 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+     public ListNode detectCycle(ListNode head) {
+        ListNode t1=getCycle(head);
+        if(t1!=null){
+            int k=1;
+            ListNode t2=t1;
+            while(t2.next!=t1){
+                t2=t2.next;
+                k++;
+            }
+            
+            t1=head;
+            t2=head;
+            for(int i=0;i<k;i++)
+                t1=t1.next;
+            
+            while(t2!=t1){
+                t2=t2.next;
+                t1=t1.next;
+            }
+            return t2;
+        }
+        return null;
+    }
+    
+    public ListNode getCycle(ListNode head){
+        if(head==null||head.next==null)
+            return null;
+        
+        ListNode slow=head,fast=head;
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast)
+                return slow;
+        }
+        return null;
+    }
+}
