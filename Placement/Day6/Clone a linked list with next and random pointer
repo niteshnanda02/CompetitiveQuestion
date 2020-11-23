@@ -1,0 +1,35 @@
+Node copyList(Node head) {
+        // your code here
+
+        Node temp=null,tail=null;
+        Node next=head.next;
+        while(head!=null){
+
+            Node nn=new Node(head.data);
+            nn.arb=head;
+            head.next=nn;
+            if(temp==null){
+                temp=nn;
+                tail=nn;
+            }else{
+                tail.next=nn;
+                tail=nn;
+            }
+            head=next;
+            if(next!=null)
+                next=next.next;
+        }
+        Node node=temp;
+        while(node!=null){
+            if(node.arb.arb!=null)
+                node.arb=node.arb.arb.next;
+            else
+                node.arb=null;
+            node=node.next;
+        }
+        //this is due to gfg not necessary
+        Node nn=new Node(temp.data);
+        nn.next=temp;
+        nn.arb=temp.arb;
+        return nn;
+    }
