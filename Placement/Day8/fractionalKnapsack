@@ -1,0 +1,57 @@
+class solve{
+    double fractionalKnapsack(int W, Item arr[], int n) {
+        // Your code here
+        
+        int[] den=new int[n];
+        for(int i=0;i<n;i++){
+            den[i]=arr[i].value/arr[i].weight;
+        }
+        sort(den,arr,n);
+        double money=0;
+        for(int i=0;i<n;i++){
+            if(W>0){
+                if(arr[i].weight<=W){
+                    money+=arr[i].value;
+                    W-=arr[i].weight;
+                }else{
+                    double fraction=(double) W/(double) arr[i].weight;
+                    money+=arr[i].value*fraction;
+                    W-=arr[i].weight*fraction;
+                   
+                }
+            }else{
+                break;
+            }
+        }
+        
+        return money;
+    }
+    void sort(int[] den,Item[] arr,int n){
+        
+        for(int i=0;i<n;i++){
+            int maxIndex=max(den,i,n);
+            swap(den,i,maxIndex);
+            swapItem(arr,i,maxIndex);
+        }
+        
+    }
+    
+    int max(int[] den,int i,int n){
+        int max=i;
+        for(;i<n;i++){
+            if(den[i]>den[max])
+                max=i;
+        }
+        return max;
+    }
+    void swap(int[] den,int i,int j){
+        int temp=den[i];
+        den[i]=den[j];
+        den[j]=temp;
+    }
+    void swapItem(Item[] arr,int i,int j){
+        Item temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+}
