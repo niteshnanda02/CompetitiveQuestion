@@ -1,0 +1,26 @@
+class CountBits{
+    
+    // Function to count number of set bits
+    public static int countSetBits(int n){
+    
+        // Your code here
+        if(n==0)
+            return 0;
+        int x=getHighest2Pow(n);
+        int bitstill2tox=(1<<x-1)*x;
+        int msbfrom2xton=n-(1<<x)+1;
+        int rem=n-(1<<x);
+        return bitstill2tox+msbfrom2xton+countSetBits(rem);
+        
+    }
+    
+    private static int getHighest2Pow(int n){
+        
+        int x=0;
+        
+        while((1<<x)<=n){
+            x++;
+        }
+        return x-1;
+    }
+}
