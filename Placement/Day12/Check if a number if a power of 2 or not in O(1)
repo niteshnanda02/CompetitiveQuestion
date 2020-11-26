@@ -1,0 +1,20 @@
+class PowerCheck{
+    
+    // Function to check if given number is power of two
+    public static boolean isPowerofTwo(long n){
+        
+        // Your code here
+        /*long c=Long.bitCount(n);
+        if(c==1)
+            return true;
+        else
+            return false;
+        */
+        if(n==0)
+            return false;
+        
+        return (int) Math.ceil(Math.log(n)/Math.log(2))==
+            (int) Math.floor(Math.log(n)/Math.log(2));
+    }
+    
+}
