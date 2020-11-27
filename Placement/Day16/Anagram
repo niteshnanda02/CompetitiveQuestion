@@ -1,0 +1,33 @@
+class Anagram{    
+    /*  Function to check if two strings are anagram
+    *   a, b: input string
+    */
+    public static boolean isAnagram(String a,String b)
+    {
+        
+        // Your code here
+        Map<Character,Integer> map=new HashMap<>();
+        for(int i=0;i<a.length();i++){
+            char ch=a.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        for(int i=0;i<b.length();i++){
+            char ch=b.charAt(i);
+            if(map.containsKey(ch)){
+                int val=map.get(ch);
+                if(val==1)
+                    map.remove(ch);
+                else
+                    map.put(ch,val-1);
+            }else
+                return false;
+        }
+        Collection<Integer> values=map.values();
+        for(int v:values){
+            if(v!=0)
+                return false;
+        }
+        return true;
+        
+    }
+}
