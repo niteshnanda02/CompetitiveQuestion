@@ -1,0 +1,13 @@
+class Solution {
+    String reverseWords(String S) {
+        // code here 
+        String[] a=S.split("\\.");
+        S="";
+        for(int i=a.length-1;i>=0;i--){
+            S+=a[i];
+            if(i>0)
+               S+="."; 
+        }
+        return S;
+    }
+}
