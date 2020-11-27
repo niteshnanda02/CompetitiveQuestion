@@ -1,0 +1,49 @@
+package com.company.String;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class kmpalgorithm {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        String text = s.next(), pat = s.next();
+        kmp(text, pat);
+    }
+
+    private static void kmp(String text, String pat) {
+        int textLength = text.length(), patLength = pat.length();
+        int[] pattern = new int[patLength];
+        create(pat, pattern, patLength);
+        int i = 0, j = -1;
+        while (i < textLength) {
+            if (text.charAt(i) == pat.charAt(j + 1)) {
+                if (j + 1 == patLength - 1) {
+                    int ans = i - j;
+                    System.out.println("String at index:- " + ans);
+                    return;
+                } else {
+                    j++;
+                }
+            } else if (j + 1 > 0) {
+                j = pattern[j];
+            }
+            i++;
+        }
+        System.out.println("Pattern is not present");
+    }
+
+    private static void create(String pat, int[] pattern, int patLength) {
+        int i = 1, j = 0;
+        pattern[0] = -1;
+        while (i < patLength) {
+            if (pat.charAt(i) == pat.charAt(j)) {
+                pattern[i] = j + 1;
+                i++;
+                j++;
+            } else if (j > 0) {
+                j = pattern[j - 1];
+            } else
+                i++;
+        }
+    }
+}
