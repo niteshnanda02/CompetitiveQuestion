@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args)
+	 {
+	 //code
+	    Scanner s=new Scanner(System.in);
+	    int t=s.nextInt();
+	    while(t-->0){
+	        int n=s.nextInt();
+	        
+	        String[] res=new String[n+3];
+	        res[1]="1";
+	        res[2]="11";
+	        for(int i=3;i<=n;i++){
+	            String str="";
+	            String prev=res[i-1];
+	            int j=0;
+	            
+	            for(j=0;j<prev.length();j++){
+	                int count=1;
+	                while(j<prev.length()-1&&prev.charAt(j)==prev.charAt(j+1)){
+	                    count++;
+	                    j++;
+	                }
+	                
+	                str+=count;
+	                str+=prev.charAt(j);
+	            }
+	            
+	            
+	            res[i]=str;
+	        }
+	        System.out.println(res[n]);
+	    }
+	 }
+}
