@@ -1,0 +1,27 @@
+class Tree
+{
+    static int result=Integer.MIN_VALUE;
+    int maxPathSum(Node root)
+    { 
+        // code here
+        maxSum(root);
+        return result;
+    } 
+    int maxSum(Node root){
+        if(root==null)
+            return 0;
+        int left=maxSum(root.left);
+        int right=maxSum(root.right);
+        
+        //1.case if current node is in the path of maxSum
+        int ms=Math.max(Math.max(left,right)+root.data,root.data);
+        
+        //2.case if current node is the root
+        int m21=Math.max(left+right+root.data,ms);
+        
+        //3 case if current node is not lies in path of maxSum
+        result=Math.max(result,m21);
+        
+        return ms;
+    }
+}
