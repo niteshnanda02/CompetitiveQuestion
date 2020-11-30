@@ -1,0 +1,43 @@
+class Tree
+{
+    class Hold{
+        Node node;
+        int hd;
+        Hold(Node a,int b){
+            node=a;
+            hd=b;
+        }
+    }
+    ArrayList<Integer> leftView(Node root)
+    {
+      // Your code here
+      TreeMap<Integer,List<Node>> map=new TreeMap<>();
+      Queue<Hold> queue=new LinkedList<>();
+      
+      Hold hold=new Hold(root,0);
+      queue.add(hold);
+      while(!queue.isEmpty()){
+          Hold rv=queue.remove();
+          List<Node> list=new ArrayList<>();
+          if(map.containsKey(rv.hd)){
+              list=map.get(rv.hd);
+          }
+          list.add(rv.node);
+          map.put(rv.hd,list);
+          if(rv.node.left!=null){
+              queue.add(new Hold(rv.node.left,rv.hd+1));
+          }
+          if(rv.node.right!=null){
+              queue.add(new Hold(rv.node.right,rv.hd+1));
+          }
+      }
+      ArrayList<Integer> ans=new ArrayList<>();
+      
+      Set<Map.Entry<Integer,List<Node>>> entries=map.entrySet();
+      for(Map.Entry<Integer,List<Node>> entry:entries){
+          ans.add(entry.getValue().get(0).data);
+      }
+      
+      return ans;
+    }
+}
