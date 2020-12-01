@@ -1,0 +1,45 @@
+/*
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+    Node(int data)
+    {
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+class Tree
+{
+    // return the Kth largest element in the given BST rooted at 'root'
+    static int count=0;
+    public int kthLargest(Node root,int K)
+    {
+        //Your code here
+        count=0;
+        Node node=Largest(root,K);
+        if(node==null)
+            return -1;
+        else
+            return node.data;
+    
+    }
+    Node Largest(Node node,int k){
+        if(node==null)
+            return node;
+        Node right=Largest(node.right,k);
+        
+        if(right!=null)
+            return right;
+            
+        count++;
+        if(count==k)
+            return node;
+            
+        return Largest(node.left,k);
+        
+    }
+}
