@@ -1,0 +1,17 @@
+private static boolean bipartite(int v,int c){
+        visited[v]=1;
+        color[v]=c;
+
+        for (int child:adj.get(v)
+             ) {
+            if (visited[child]==0){
+                if (!bipartite(child,color[v]^1))
+                    return false;
+            }else {
+                if (color[v]==color[child])
+                    return false;
+            }
+        }
+        return true;
+
+    }
