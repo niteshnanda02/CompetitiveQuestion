@@ -1,0 +1,45 @@
+
+//dfs+Pruning
+class Solution {
+    class Node{
+        int data,w;
+        Node(int a,int b){
+            data=a;
+            w=b;
+        }
+    }
+    ArrayList<ArrayList<Node>> adj;
+    static int[] visited;
+    static int min=Integer.MAX_VALUE;
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        min=Integer.MAX_VALUE;
+        adj=new ArrayList<>(n);
+        for(int i=0;i<n;i++)
+            adj.add(new ArrayList<>());
+        visited=new int[n];
+        for(int i=0;i<flights.length;i++){
+            int u=flights[i][0],v=flights[i][1],w=flights[i][2];
+            adj.get(u).add(new Node(v,w));
+        }
+        dfs(src,dst,0,K);
+        if(min==Integer.MAX_VALUE)
+            return -1;
+        return min;
+    }
+    void dfs(int src,int dst,int count,int k){
+        if(k<-1)
+            return;
+        
+        if(src==dst){
+            min=Math.min(min,count);
+            return;
+        }
+        visited[src]=1;
+        for(Node child:adj.get(src)){
+            if(visited[child.data]==0&&count+child.w<min){
+                dfs(child.data,dst,count+child.w,k-1);
+            }
+        }
+        visited[src]=0;
+    }
+}
