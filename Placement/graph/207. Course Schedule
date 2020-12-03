@@ -1,0 +1,48 @@
+class Solution {
+    static ArrayList<ArrayList<Integer>> adj;
+    static int[] visited;
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        adj=new ArrayList<>(numCourses);
+        for(int i=0;i<numCourses;i++){
+            adj.add(new ArrayList<>());
+        }
+        visited=new int[numCourses];
+        for(int i=0;i<prerequisites.length;i++){
+            int a=prerequisites[i][0],b=prerequisites[i][1];
+            adj.get(a).add(b);
+            
+        }
+        
+        return !isCycle(numCourses);
+        
+    }
+        
+    boolean isCycle(int numCourses){
+        boolean temp=false;
+        
+        for(int i=0;i<numCourses;i++){
+            visited[i]=1;
+            for(int child:adj.get(i)){
+                
+                temp=cycle(child);
+                if(temp)
+                    return true;
+            }
+            visited[i]=0;
+        }
+        return false;
+    }
+    boolean cycle(int node){
+        if(visited[node]==1)
+            return true;
+        visited[node]=1;
+        boolean temp=false;
+        for(int child:adj.get(node)){
+            temp=cycle(child);
+            if(temp)
+                return true;
+        }
+        visited[node]=0;
+        return false;
+    }
+}
