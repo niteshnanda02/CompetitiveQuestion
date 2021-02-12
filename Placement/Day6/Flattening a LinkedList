@@ -1,0 +1,64 @@
+class GfG
+{
+    Node flatten(Node root)
+    {
+	// Your code here
+	    Node temp=root;
+	    while(temp!=null){
+	        Node next=temp.next;
+	        
+	        Node bottom=temp;
+	        while(bottom.bottom!=null){
+	            bottom=bottom.bottom;
+	        }
+	        bottom.bottom=next;
+	        bottom=bottom.bottom;
+	        temp.next=null;
+	        temp=bottom;
+	    }
+	    
+	    return mergeSort(root);
+    }
+    Node mergeSort(Node head){
+        if(head==null||head.bottom==null)
+            return head;
+            
+        Node middle=getMiddle(head);
+        Node nextToMiddle=middle.bottom;
+        
+        if(middle!=null){
+            middle.bottom=null;
+        }
+        
+        Node left=mergeSort(head);
+        Node right=mergeSort(nextToMiddle);
+        
+        return merge(left,right);
+    }
+    
+    Node merge(Node left,Node right){
+        if(left==null)
+            return right;
+        if(right==null)
+            return left;
+        if(left.data<right.data){
+            left.bottom=merge(left.bottom,right);
+            return left;
+        }else{
+            right.bottom=merge(left,right.bottom);
+            return right;
+        }
+    }
+    
+    Node getMiddle(Node head){
+        if(head==null)
+            return head;
+            
+        Node slow=head,fast=head;
+        while(fast.bottom!=null&&fast.bottom.bottom!=null){
+            fast=fast.bottom.bottom;
+            slow=slow.bottom;
+        }
+        return slow;
+    }
+}
